@@ -16,9 +16,26 @@ const { NotImplementedError } = require('../lib');
  *
  */
 
-function repeater(/* str, options */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+function repeater(str, options) {
+  const mainLine = String(str);
+
+  const hasProperty = (el) => Object.prototype.hasOwnProperty.call(options, el);
+
+  const repeatTimes = hasProperty("repeatTimes") ? Number(options.repeatTimes) : 1;
+  const separator = hasProperty("separator")? String(options.separator) : "+";
+  const addition = hasProperty("addition") ? String(options.addition) : "";
+  const additionRepeatTimes = hasProperty("additionRepeatTimes") ? Number(options.additionRepeatTimes) : 1;
+  const additionSeparator = hasProperty("additionSeparator") ? String(options.additionSeparator) : "|";
+
+  const secondPartOfLine = additionRepeatTimes > 0
+    ? new Array(additionRepeatTimes).fill(addition).join(additionSeparator)
+    : "";
+
+  const wholeLine = mainLine + secondPartOfLine;
+
+  return repeatTimes > 0
+    ? new Array(repeatTimes).fill(wholeLine).join(separator)
+    : "";
 }
 
 module.exports = {
